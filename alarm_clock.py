@@ -13,9 +13,10 @@ import sys
 import string
 from time import sleep
 
-sa = sys.argv
+#you use sa only once or twice and it's not as specific/descriptive as sys.argv
+sys.argv
 lsa = len(sys.argv)
-if lsa != 2:
+if lsa != 3:
     print("Usage: [ python ] alarm_clock.py duration_in_minutes")
     print("Example: [ python ] alarm_clock.py 10")
     print("Use a value of 0 minutes for testing the alarm immediately.")
@@ -24,11 +25,18 @@ if lsa != 2:
     sys.exit(1)
 
 try:
-    minutes = int(sa[1])
+    minutes = int(sys.argv[1])
 except ValueError:
     print("Invalid numeric value (%s) for minutes") # % sa[1]
     print("Should be an integer >= 0")
     sys.exit(1)
+
+try:
+	beep_number=int(sys.argv[2])
+except ValueError:
+	print("Invalid beep number, should be an integer >5")
+	sys.exit(1)
+
 
 if minutes < 0:
     print("Invalid value for minutes, should be >= 0")
@@ -46,7 +54,7 @@ try:
         print("Sleeping for " + str(minutes) + unit_word)
         sleep(seconds)
     print("Wake up")
-    for i in range(5):
+    for i in range(beep_number):
         print(chr(7)),
         sleep(1)
 except KeyboardInterrupt:
